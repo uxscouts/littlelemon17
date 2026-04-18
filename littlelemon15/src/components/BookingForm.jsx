@@ -6,9 +6,10 @@ function BookingForm({ availableTimes, dispatch }) {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
+  const [guests, setGuests] = useState('1');
   const [date, setDate] = useState('');
   const [time, setTime] = useState('');
-  const [guests, setGuests] = useState('1');
+  
 
   const handleDateChange = (e) => {
     const selectedDate = e.target.value;
@@ -17,12 +18,13 @@ function BookingForm({ availableTimes, dispatch }) {
   };
 
   const handleTimeChange = (e) => {
-    setTime(e.target.value);
+    const selectedTime = e.target.value;
+    setTime(selectedTime);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    updateBooking(name, email, phone, date, time, guests, date);
+    updateBooking(name, email, phone, guests, date, time);
   };
 
   return (
@@ -32,10 +34,10 @@ function BookingForm({ availableTimes, dispatch }) {
       <p>Name: {user.name}</p>
       <p>Email: {user.email}</p>
       <p>Phone: {user.phone}</p>
+      <p>Guests: {user.guests}</p>      
       <p>Date: {user.date}</p>
       <p>Time: {user.time}</p>
-      <p>Guests: {user.guests}</p>
-      <p>Res Date: {user.resdate}</p>
+      <p>Occasion: </p>
       <hr />
       <form onSubmit={handleSubmit}>
         <input
@@ -68,17 +70,17 @@ function BookingForm({ availableTimes, dispatch }) {
           required
         />
 
-        <label htmlFor="resdate">Choose date</label>
+        <label htmlFor="date">Choose date</label>
         <input
           type="date"
-          id="resdate"
+          id="date"
           value={date}
           onChange={handleDateChange}
           required
         />
 
         <label htmlFor="time">Choose time</label>
-        <select id="time" value={time} onChange={handleTimeChange} required>
+        <select id="time" value={time} onChange={handleTimeChange}>
           {availableTimes.map((timeOption) => (
             <option key={timeOption} value={timeOption}>
               {timeOption}
@@ -93,6 +95,36 @@ function BookingForm({ availableTimes, dispatch }) {
 }
 
 export default BookingForm;
+
+
+{/*
+  <section aria-label="Booking Section" 
+  class="bookingSection">
+  <h2>Book Your Reservation</h2>
+  <form aria-label="Booking Reservation Form" class="bookingForm">
+  <div><div aria-label="First Name Container" class="container firstNameContainer">
+  <label for="firstName">First Name<span aria-label="Required" class="required">*</span></label>
+  <input name="firstName" aria-label="First Name Input" aria-required="true" id="firstName" autocomplete="off">
+  </div><div aria-label="Last Name Container" class="container lastNameContainer">
+  <label for="lastName">Last Name<span aria-label="Required" class="required">*</span>
+  </label><input name="lastName" aria-label="Last Name Input" aria-required="true" id="lastName" autocomplete="off">
+  </div></div><div aria-label="Date Container" class="container dateContainer">
+  <label for="date">Choose Date<span aria-label="Required" class="required">*</span></label>
+  <input name="date" aria-label="Date Input" aria-required="true" id="date" type="date"></div>
+  <div aria-label="Time Container" class="container timeContainer">
+  <label for="time">Choose Time<span aria-label="Required" class="required">*</span></label>
+  <select name="time" aria-label="Select Time" aria-required="true" id="time">
+  <option>17:00</option><option>17:30</option><option>19:30</option><option>20:00</option>
+  <option>21:30</option><option>22:30</option><option>23:00</option><option>23:30</option></select>
+  </div><div aria-label="Guest Container" class="container guestsContainer">
+  <label for="guests">Number of Guests<span aria-label="Required" class="required">*</span></label>
+  <input name="guests" aria-label="Guests Input" aria-required="true" id="guests" type="number" min="0" placeholder="1">
+  </div><div aria-label="Occasion Container" class="container occasionContainer">
+  <label for="occasion">Occasion</label><select name="occasion" aria-label="Select Occasion" id="occasion">
+  <option>None</option><option>Birthday</option><option>Engagement</option><option>Anniversary</option></select>
+  </div><button class="primaryBtn" text="Create Reservation" type="submit" 
+  style="border: 1px solid rgb(33, 33, 33);">Create Reservation</button></form></section>
+  */}
 
 
 
