@@ -1,6 +1,7 @@
 import React, { useReducer, useEffect } from 'react';
 import BookingForm from './BookingForm';
-import { fetchAPI } from '../API'; // Ensure this matches your project's API file
+import { fetchAPI } from '../API';
+
 
 // 1. Define the reducer function
 export const updateTimes = (state, action) => {
@@ -18,6 +19,7 @@ export const initializeTimes = () => {
     const today = new Date();
     return fetchAPI(today);
 };
+
 
 function BookingPage() {
     // 3. Setup useReducer

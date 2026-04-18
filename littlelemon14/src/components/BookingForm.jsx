@@ -5,6 +5,16 @@ import { useState } from 'react';
 import { useUser } from '../context/BookingContext'; // Import custom hook
 
 function BookingForm({ availableTimes, dispatch }) {
+
+    const handleDateChange = (e) => {
+        const date = e.target.value;
+        // 5. Dispatch action to update availableTimes state in Main.js
+        dispatch({ type: 'UPDATE_TIMES', payload: date });
+        setResdate(date);
+    };
+
+
+
   // Access the context
   const { user, updateBooking } = useUser();
   const [name, setName] = useState('');
@@ -13,11 +23,12 @@ function BookingForm({ availableTimes, dispatch }) {
   const [date, setDate] = useState('');
   const [time, setTime] = useState('');
   const [guests, setGuests] = useState('');
+  const [resdate, setResdate] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
     // Update the context value
-    updateBooking(name, email, phone, date, time, guests);
+    updateBooking(name, email, phone, date, time, guests, resdate);
   };
 
   return (
@@ -30,6 +41,7 @@ function BookingForm({ availableTimes, dispatch }) {
         <p>Date: {user.date}</p>
         <p>Time: {user.time}</p>
         <p>Guests: {user.guests}</p>
+        <p>Res Date: {user.resdate}</p>
         <hr/>
       <form onSubmit={handleSubmit}>
         <input 
@@ -50,25 +62,54 @@ function BookingForm({ availableTimes, dispatch }) {
           value={phone} 
           onChange={(e) => setPhone(e.target.value)} 
         />
+
+        <input 
+          type="text" 
+          placeholder="Guests" 
+          value={guests} 
+          onChange={(e) => setGuests(e.target.value)} 
+        />         
+
+
          <input 
           type="text" 
           placeholder="Date" 
           value={date} 
           onChange={(e) => setDate(e.target.value)} 
         />
+
+
+        {/*
           <input 
           type="text" 
           placeholder="Time" 
           value={time} 
           onChange={(e) => setTime(e.target.value)} 
         />
-           <input 
-          type="text" 
-          placeholder="Guests" 
-          value={guests} 
-          onChange={(e) => setGuests(e.target.value)} 
-        />                                 
-        <button type="submit">Update Booking</button>
+          */}
+
+          <label htmlFor="resdate">Choose date</label>
+            <input 
+                type="date" 
+                id="resdate" 
+                onChange={handleDateChange} 
+                required 
+            />
+
+            <label htmlFor="restime">Choose time</label>
+            <select id="restime" required>
+                {availableTimes.map((time) => (
+                    <option 
+                      key={time} 
+                      value={time} 
+                      onChange={(e) => setTime(e.target.value)} 
+                      >
+                        {time}
+                    </option>
+                ))}
+            </select>       
+
+        <input type="submit" value="Make Your Reservation" />
       </form>
     </div>
   );
