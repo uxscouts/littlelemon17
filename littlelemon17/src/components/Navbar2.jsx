@@ -1,13 +1,17 @@
 
 import { useState } from 'react';
-import { Collapse, Navbar, NavbarToggler, Nav, NavItem, NavLink } from 'reactstrap';
+import { Collapse, Navbar, NavbarBrand, NavbarToggler, Nav, NavItem, NavLink } from 'reactstrap';
+import logo from '../assets/images/LemonLogo.png';
 
 const SiteNavbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
 
   return (
-    <Navbar color="light" light expand="md">
+    <Navbar light expand="md">
+      <NavbarBrand href="/">
+        <img src={logo} alt="Little Lemon Company Logo" />
+      </NavbarBrand>
       <NavbarToggler onClick={toggle} />
       <Collapse isOpen={isOpen} navbar>
         <Nav className="ms-auto" navbar>
@@ -21,3 +25,6 @@ const SiteNavbar = () => {
 };
 
 export default SiteNavbar;
+
+
+// littlelemon17/src/assets/images/LemonLogo.png
